@@ -21,13 +21,14 @@ public class RemotingCommand {
     private static AtomicInteger requestId = new AtomicInteger(0);
     private static volatile int configVersion = -1;
 
-    // 请求编码
+    // 业务标识,用于选择处理器
     private int code;
     private String remark;
     private int version = 0;
     private int opaque = requestId.getAndIncrement();
 
     private static final int RPC_TYPE = 0;
+    // request: 0   response: 1
     private int flag = 0;
 
     private transient byte[] body;

@@ -21,7 +21,9 @@ public class NettyClientTest {
 
         RemotingCommand command = new RemotingCommand();
         command.setOpaque(1);
+        // 业务标识,用于选择处理器
         command.setCode(2);
+        // 发送/请求标识   request: 0   response: 1
         command.setFlag(0);
         command.setRemark("备注A");
         command.setVersion(5);
