@@ -3,6 +3,7 @@ package com.bingo.salute.mq.remoting;
 import com.bingo.salute.mq.remoting.netty.NettyClientConfig;
 import com.bingo.salute.mq.remoting.netty.NettyRemotingClient;
 import com.bingo.salute.mq.remoting.protocol.RemotingCommand;
+import com.bingo.salute.mq.remoting.protocol.SerializeType;
 
 /**
  * Author : bingo624
@@ -28,6 +29,7 @@ public class NettyClientTest {
         command.setRemark("备注A");
         command.setVersion(5);
         command.setBody(world.getBytes());
+        command.setSerializeTypeCurrentRPC(SerializeType.JSON);
         try {
             RemotingCommand response = client.invokeSync("192.168.1.3:8888", command, 100000);
             System.err.println(response);

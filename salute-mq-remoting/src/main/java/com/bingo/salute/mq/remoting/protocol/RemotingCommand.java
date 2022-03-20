@@ -31,6 +31,8 @@ public class RemotingCommand {
     // request: 0   response: 1
     private int flag = 0;
 
+    private SerializeType serializeTypeCurrentRPC = SerializeType.JSON;
+
     private transient byte[] body;
 
     @JSONField(serialize = false)
@@ -88,7 +90,7 @@ public class RemotingCommand {
         byte[] headerData = new byte[headerLength];
         byteBuffer.get(headerData);
 
-        RemotingCommand cmd = RemotingSerializable.decode(headerData, RemotingCommand.class);
+        RemotingCommand cmd = headerDecode(headerData, getProtocolType(oriHeaderLen));
 
         int bodyLength = length - 4 - headerLength;
         byte[] bodyData = null;
@@ -127,7 +129,7 @@ public class RemotingCommand {
         result.putInt(length);
 
         // header length
-        result.putInt(headerData.length);
+        result.put(markProtocolType(headerData.length, serializeTypeCurrentRPC));
 
         // header data
         result.put(headerData);
@@ -135,6 +137,32 @@ public class RemotingCommand {
         result.flip();
 
         return result;
+    }
+
+    public static byte[] markProtocolType(int source, SerializeType type) {
+        byte[] result = new byte[4];
+
+        result[0] = type.getCode();
+        result[1] = (byte) ((source >> 16) & 0xFF);
+        result[2] = (byte) ((source >> 8) & 0xFF);
+        result[3] = (byte) (source & 0xFF);
+        return result;
+    }
+
+    public static SerializeType getProtocolType(int source) {
+        return SerializeType.valueOf((byte) ((source >> 24) & 0xFF));
+    }
+
+    private static RemotingCommand headerDecode(byte[] headerData, SerializeType type) {
+        switch (type) {
+            case JSON:
+                RemotingCommand resultJson = RemotingSerializable.decode(headerData, RemotingCommand.class);
+                resultJson.setSerializeTypeCurrentRPC(type);
+                return resultJson;
+            default:
+                break;
+        }
+        return null;
     }
 
     @Override
