@@ -1,5 +1,7 @@
 package com.bingo.salute.mq.remoting.netty;
 
+import com.bingo.salute.mq.logger.InternalLogger;
+import com.bingo.salute.mq.logger.InternalLoggerFactory;
 import com.bingo.salute.mq.remoting.common.Pair;
 import com.bingo.salute.mq.remoting.common.RemotingHelper;
 import com.bingo.salute.mq.remoting.common.RemotingUtil;
@@ -30,7 +32,6 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.concurrent.DefaultEventExecutorGroup;
-import lombok.extern.slf4j.Slf4j;
 
 import java.net.SocketAddress;
 import java.util.Map;
@@ -53,8 +54,9 @@ import java.util.concurrent.locks.ReentrantLock;
  * Description :
  * version : 1.0
  */
-@Slf4j
 public class NettyRemotingClient extends NettyRemotingAbstract implements RemotingClient {
+
+    private static final InternalLogger log = InternalLoggerFactory.getLogger(RemotingHelper.ROCKETMQ_REMOTING);
 
     private static final long LOCK_TIMEOUT_MILLIS = 3000;
 

@@ -1,12 +1,13 @@
 package com.bingo.salute.mq.remoting.netty;
 
+import com.bingo.salute.mq.logger.InternalLogger;
+import com.bingo.salute.mq.logger.InternalLoggerFactory;
 import com.bingo.salute.mq.remoting.common.RemotingHelper;
 import com.bingo.salute.mq.remoting.common.RemotingUtil;
 import com.bingo.salute.mq.remoting.protocol.RemotingCommand;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import lombok.extern.slf4j.Slf4j;
 
 import java.nio.ByteBuffer;
 
@@ -16,8 +17,9 @@ import java.nio.ByteBuffer;
  * Description :
  * version : 1.0
  */
-@Slf4j
 public class NettyDecoder extends LengthFieldBasedFrameDecoder {
+
+    private static final InternalLogger log = InternalLoggerFactory.getLogger(RemotingHelper.ROCKETMQ_REMOTING);
 
     private static final int FRAME_MAX_LENGTH = 16777216;
 

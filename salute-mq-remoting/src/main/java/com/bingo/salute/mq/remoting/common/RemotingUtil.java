@@ -1,8 +1,9 @@
 package com.bingo.salute.mq.remoting.common;
 
+import com.bingo.salute.mq.logger.InternalLogger;
+import com.bingo.salute.mq.logger.InternalLoggerFactory;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFutureListener;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Author : bingo624
@@ -10,11 +11,11 @@ import lombok.extern.slf4j.Slf4j;
  * Description :
  * version : 1.0
  */
-@Slf4j
 public class RemotingUtil {
 
-    public static final String OS_NAME = System.getProperty("os.name");
+    private static final InternalLogger log = InternalLoggerFactory.getLogger(RemotingHelper.ROCKETMQ_REMOTING);
 
+    public static final String OS_NAME = System.getProperty("os.name");
     private static boolean isLinuxPlatform = false;
     private static boolean isWindowsPlatform = false;
 

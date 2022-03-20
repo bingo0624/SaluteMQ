@@ -13,6 +13,8 @@ import java.net.SocketAddress;
  */
 public class RemotingHelper {
 
+    public static final String ROCKETMQ_REMOTING = "RocketmqRemoting";
+
     public static String exceptionSimpleDesc(final Throwable e) {
         StringBuffer sb = new StringBuffer();
         if (e != null) {

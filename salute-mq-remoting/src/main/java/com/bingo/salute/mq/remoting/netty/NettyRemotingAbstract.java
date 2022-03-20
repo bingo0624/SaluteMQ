@@ -1,5 +1,7 @@
 package com.bingo.salute.mq.remoting.netty;
 
+import com.bingo.salute.mq.logger.InternalLogger;
+import com.bingo.salute.mq.logger.InternalLoggerFactory;
 import com.bingo.salute.mq.remoting.common.Pair;
 import com.bingo.salute.mq.remoting.common.RemotingHelper;
 import com.bingo.salute.mq.remoting.common.ServiceThread;
@@ -9,7 +11,6 @@ import com.bingo.salute.mq.remoting.service.NettyRequestProcessor;
 import com.bingo.salute.mq.remoting.service.RPCHook;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,8 +30,9 @@ import java.util.concurrent.TimeUnit;
  * Description :  远程调用抽象类
  * version : 1.0
  */
-@Slf4j
 public abstract class NettyRemotingAbstract {
+
+    private static final InternalLogger log = InternalLoggerFactory.getLogger(RemotingHelper.ROCKETMQ_REMOTING);
 
     protected final ConcurrentMap<Integer /* opaque */, ResponseFuture> responseTable =
             new ConcurrentHashMap<>(256);

@@ -1,6 +1,8 @@
 package com.bingo.salute.mq.remoting.common;
 
-import lombok.extern.slf4j.Slf4j;
+import com.bingo.salute.mq.logger.InternalLogger;
+import com.bingo.salute.mq.logger.InternalLoggerFactory;
+import com.bingo.salute.mq.logger.LoggerName;
 
 /**
  * Author : bingo624
@@ -8,8 +10,9 @@ import lombok.extern.slf4j.Slf4j;
  * Description :
  * version : 1.0
  */
-@Slf4j
 public abstract class ServiceThread implements Runnable {
+
+    private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
 
     private static final long JOIN_TIME = 90 * 1000;
     protected final Thread thread;
